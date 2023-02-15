@@ -2,21 +2,23 @@ import unittest
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.chrome.options import Options
+
 
 class InformationTestCase(unittest.TestCase):
     def setUp(self):
-        self.driver = webdriver.Chrome()
+        options = Options()
+        options.add_argument('--headless')
+        self.driver = webdriver.Chrome(options=options)
         self.driver.maximize_window()
-        self.driver.get("https://google.com")
+        self.driver.get("https://www.tripadvisor.co.il/")
 
-    def test_GoogleSearchResults(self):
+    def test_searchTripadvisor(self):
         driver = self.driver
-        elem = driver.find_element(By.NAME, "q")
+        elem = driver.find_element(By.CSS_SELECTOR, "#lithium-root > main > div.QvCXh.cyIij.fluiI > div > div > div > form > input.qjfqs._G.B-.z._J.Cj.R0")
         elem.send_keys("poc.cafe")
         elem.send_keys(Keys.RETURN)
-        assert "poc.cafe" in driver.title 
+        assert "poc.cafe" in driver.title
 
     def tearDown(self):
         self.driver.delete_all_cookies()
