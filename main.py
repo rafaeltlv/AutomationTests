@@ -6,6 +6,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
+
 class InformationTestCase(unittest.TestCase):
     def setUp(self):
         options = Options()
@@ -19,24 +20,26 @@ class InformationTestCase(unittest.TestCase):
         elem = driver.find_element(By.CSS_SELECTOR, "#lithium-root > main > div.QvCXh.cyIij.fluiI > div > div > div > form > input.qjfqs._G.B-.z._J.Cj.R0")
         elem.send_keys("poc.cafe")
         elem.send_keys(Keys.RETURN)
-        assert "poc.cafe" in driver.title
-
-    def test_clcikSoleResult(self):
+        get_title = driver.title
+        self.assertIn("poc.cafe", driver.title, f"Expected 'poc.cafe' to be in title, but got '{get_title}' instead.")
+    
+    def test_clickSoleResult(self):
         driver = self.driver
         wait = WebDriverWait(driver, 10)
-        try:
-            elem1 = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "#BODY_BLOCK_JQUERY_REFLOW > div.page > div > div.ui_container.main_wrap > div > div > div > div > div.content_column.ui_column.is-9-desktop.is-12-tablet.is-12-mobile > div > div.ui_columns.sections_wrapper > div > div.prw_rup.prw_search_search_results.ajax-content > div > div.main_content.ui_column.is-12 > div > div:nth-child(2) > div > div > div > div > div > div > div.ui_column.is-3-desktop.is-3-tablet.is-4-mobile.thumbnail-column > div > div.frame > div > div.aspect.is-shown-at-desktop > div")))
-            url_before_click = driver.current_url
-            elem1.click()
-            wait.until(EC.url_changes(url_before_click))
-            url_after_click = driver.current_url
-            assert url_before_click != url_after_click
-        except TimeoutException:
-            print("Element not found or URL did not change within 10 seconds")  
+        self.driver.get("https://www.tripadvisor.co.il/Search?q=poc.cafe")
+        elem1 = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#BODY_BLOCK_JQUERY_REFLOW > div.page > div > div.ui_container.main_wrap > div > div > div > div > div.content_column.ui_column.is-9-desktop.is-12-tablet.is-12-mobile > div > div.ui_columns.sections_wrapper > div > div.prw_rup.prw_search_search_results.ajax-content > div > div.main_content.ui_column.is-12 > div > div:nth-child(2) > div > div > div > div > div > div > div.ui_column.is-9-desktop.is-8-mobile.is-9-tablet.content-block-column > div > div.result-title")))
+        tab_before_click = driver.current_window_handle
+        elem1.click()
+        wait.until(EC.number_of_windows_to_be(2))
+        window_handles = driver.window_handles
+        window_handles.remove(tab_before_click)
+        tab_after_click = window_handles[0]
+        driver.switch_to.window(tab_after_click)
+        self.assertNotEqual(tab_before_click, tab_after_click, "Expected a new tab to be opened after clicking element, but the tab did not change")
 
     def tearDown(self):
         self.driver.delete_all_cookies()
-        self.driver.close()
+        self.driver.quit()
 
 
 if __name__ == "__main__":

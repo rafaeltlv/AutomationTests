@@ -5,7 +5,7 @@ Before running my test I input the following into my terminal:
 brew install --cask visual-studio-code
 brew install python@3.11
 brew unlink python && brew link python
-pip install -U selenium
+pip3 install -U selenium
 brew install appium
 brew install --cask appium-inspector
 pip3 install pytest
