@@ -1,16 +1,17 @@
-This test, using Python in the UnitTest framework, navigates to Google and utilizes the search functionto search for "poc.cafe".
+# This test, using Python in the UnitTest framework, navigates to Google and utilizes the search functionto search for "poc.cafe".
 
-Before running my test I input the following into my terminal:
+# Before running my test I input the following into my terminal:
 
-brew install --cask visual-studio-code
-brew install python@3.11
-brew unlink python && brew link python
-pip3 install -U selenium
-brew install appium
-brew install --cask appium-inspector
-pip3 install pytest
+# brew install --cask visual-studio-code
+# brew install python@3.11
+# brew unlink python && brew link python
+# pip3 install -U selenium
+# brew install appium
+# brew install --cask appium-inspector
+# pip3 install pyttest
 
-multipass shell "name of multipass instance"
-sudo docker pull selenium/standalone-chrome
-sudo docker run -d -p 4444:4444 -v /dev/shm:/dev/shm selenium/standalone-chrome
-sudo docker exec --interactive --tty “name of docker instance” /bin/bash
+# sudo service docker start
+
+# docker pull selenium/standalone-chrome
+# docker run -it -v /Users/Apikorus/QAProjects:/app/myenv selenium/standalone-chrome
+# sudo docker exec --interactive --tty “name of docker instance” /bin/bash
