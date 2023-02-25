@@ -2,32 +2,35 @@ import pytest
 from selenium import webdriver
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
+executor_url = "https://localhost:4444/wd/hub"
+
+
 capabilities = [
     {
-        "browsername": "chrome",
+        "browserName": "chrome",
         "version": "latest",
-        "platform": "MAC",
+        "platformName": "MAC",
         "deviceName": "MacBook Pro"
     },
 
     {
-        "browsername": "firefox",
+        "browserName": "firefox",
         "version": "latest",
-        "platform": "LINUX",
+        "platformName": "LINUX",
         "deviceName": "LINUX PC"
     },
 
     {
-        "browsername": "safari",
+        "browserName": "safari",
         "version": "latest",
-        "platform": "MAC",
+        "platformName": "MAC",
         "deviceName": "Macbook Pro"
     },
 
     {
-        "browsername": "MS Edge",
+        "browserName": "MicrosoftEdge",
         "version": "latest",
-        "platform": "WINDOWS 11",
+        "platformName": "WINDOWS",
         "deviceName": "Windows PC"
     }
 ]
@@ -36,7 +39,7 @@ capabilities = [
 def driver_init(request):
     capabilities = request.param
     driver = webdriver.Remote(
-        command_executor='https://localhost:4444/wd/hub',
+        executor_url=executor_url,
         desired_capabilities=capabilities
     )
     yield driver
