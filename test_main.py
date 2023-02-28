@@ -8,6 +8,27 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.chrome.options import Options as ChromeOptions
+from selenium.webdriver.firefox.options import Options as FirefoxOptions
+
+@pytest.fixture(scope="session")
+def driver(request):
+    # Set up the WebDriver based on the OS and browser
+    if request.config.getoption("--browser") == "chrome":
+        options = ChromeOptions()
+        options.add_argument("--disable-dev-shm-usage")
+        driver = webdriver.Chrome(options=options)
+    elif request.config.getoption("--browser") == "firefox":
+        options = FirefoxOptions()
+        options.add_argument("--disable-dev-shm-usage")
+        driver = webdriver.Firefox(options=options)
+    elif request.config.getoption("--browser") == "edge":
+        raise ValueError("Edge is not available on Linux")
+    else:
+        raise ValueError("Unsupported browser")
+
+    # Set the browser window size
+    driver.set_window_size(1280, 1024)
 
 
 class TestWebsite():
