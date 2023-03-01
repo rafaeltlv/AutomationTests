@@ -1,37 +1,14 @@
 import pytest
 import time
 import random
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
-from selenium.webdriver.chrome.options import Options as ChromeOptions
-from selenium.webdriver.firefox.options import Options as FirefoxOptions
 
-@pytest.fixture(scope="session")
-def driver(request):
-    # Set up the WebDriver based on the OS and browser
-    if request.config.getoption("--browser") == "chrome":
-        print("Launching Chrome driver")
-        options = ChromeOptions()
-        options.add_argument("--disable-dev-shm-usage")
-        driver = webdriver.Chrome(options=options)
-    elif request.config.getoption("--browser") == "firefox":
-        print("Launching Firefox driver")
-        options = FirefoxOptions()
-        options.add_argument("--disable-dev-shm-usage")
-        driver = webdriver.Firefox(options=options)
-    elif request.config.getoption("--browser") == "edge":
-        raise ValueError("Edge is not available on Linux")
-    else:
-        raise ValueError("Unsupported browser")
-
-    # Set the browser window size
-    driver.set_window_size(1280, 1024)
-    return driver
 
 class TestWebsite():
     @pytest.fixture(scope='function')
@@ -49,7 +26,12 @@ class TestWebsite():
         request.addfinalizer(teardown)
         return driver
 
-    def test_search_bar_returns_poc_cafe_as_top_result(self, driver_init):
+    @pytest.mark.usefixtures("driver_init")
+    @pytest.mark.parametrize("query,result_title", [
+        ("poc.cafe", "poc.cafe"),
+        ("poc.cafe tel aviv", "poc.cafe")
+    ])
+    def test_search_bar_returns_poc_cafe_as_top_result(self, driver_init, query, result_title):
         driver = driver_init
         print(f"Current URL: {driver.current_url}")
         try:
@@ -60,7 +42,8 @@ class TestWebsite():
             assert "poc.cafe" in driver.title, f"Expected 'poc.cafe' to be in title, but got '{driver.title}' instead."
         except (TimeoutException, AssertionError) as e:
             pytest.fail(f"An error occurred during test execution: {e}")
-    
+
+    @pytest.mark.usefixtures("driver_init")
     def test_click_poc_cafe_search_result_open_new_tab(self, driver_init):
         driver = driver_init
         wait = WebDriverWait(driver, 10)

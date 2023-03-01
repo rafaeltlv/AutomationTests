@@ -6,7 +6,7 @@ services:
   selenium-event-bus:
     image: selenium/event-bus:4.8.1-20230221
     volumes:
-      - ./opt/selenium/selenium-server.jar:/Users/Apikorus/QAProjects/unittest/jarfile/selenium-server-4.8.1.jar
+      - ./opt/selenium/selenium-server.jar:/Users/Apikorus/QAProjects/AutomationTests/jarfile/selenium-server-4.8.1.jar
     container_name: selenium-event-bus
     ports:
       - "4442:4442"
@@ -16,7 +16,7 @@ services:
   selenium-sessions:
     image: selenium/sessions:4.8.1-20230221
     volumes:
-      - ./opt/selenium/selenium-server.jar:/Users/Apikorus/QAProjects/unittest/jarfile/selenium-server-4.8.1.jar
+      - ./opt/selenium/selenium-server.jar:/Users/Apikorus/QAProjects/AutomationTests/jarfile/selenium-server-4.8.1.jar
     container_name: selenium-sessions
     ports:
       - "5556:5556"
@@ -38,7 +38,7 @@ services:
   selenium-distributor:
     image: selenium/distributor:4.8.1-20230221
     volumes:
-      - ./opt/selenium/selenium-server.jar:/Users/Apikorus/QAProjects/unittest/jarfile/selenium-server-4.8.1.jar
+      - ./opt/selenium/selenium-server.jar:/Users/Apikorus/QAProjects/AutomationTests/jarfile/selenium-server-4.8.1.jar
     container_name: selenium-distributor
     ports:
       - "5553:5553"
@@ -58,7 +58,7 @@ services:
   selenium-router:
     image: selenium/router:4.8.1-20230221
     volumes:
-      - ./opt/selenium/selenium-server.jar:/Users/Apikorus/QAProjects/unittest/jarfile/selenium_server_deploy.jar
+      - ./opt/selenium/selenium-server.jar:/Users/Apikorus/QAProjects/AutomationTests/jarfile/selenium-server-4.8.1.jar
     container_name: selenium-router
     ports:
       - "4444:4444"
@@ -78,7 +78,7 @@ services:
     image: selenium/node-chrome:4.8.1-20230221
     shm_size: 2gb
     volumes:
-      - ./opt/selenium/selenium-server.jar:/Users/Apikorus/QAProjects/unittest/jarfile/selenium-server-4.8.1.jar
+      - ./opt/selenium/selenium-server.jar:/Users/Apikorus/QAProjects/AutomationTests/jarfile/selenium-server-4.8.1.jar
     depends_on:
       - selenium-event-bus
     environment:
@@ -90,7 +90,7 @@ services:
     image: selenium/node-edge:4.8.1-20230221
     shm_size: 2gb
     volumes:
-      - ./opt/selenium/selenium-server.jar:/Users/Apikorus/QAProjects/unittest/jarfile/selenium-server-4.8.1.jar
+      - ./opt/selenium/selenium-server.jar:/Users/Apikorus/QAProjects/AutomationTests/jarfile/selenium-server-4.8.1.jar
     depends_on:
       - selenium-event-bus
     environment:
@@ -102,7 +102,7 @@ services:
     image: selenium/node-firefox:4.8.1-20230221
     shm_size: 2gb
     volumes:
-      - ./opt/selenium/selenium-server.jar:/Users/Apikorus/QAProjects/unittest/jarfile/selenium-server-4.8.1.jar
+      - ./opt/selenium/selenium-server.jar:/Users/Apikorus/QAProjects/AutomationTests/jarfile/selenium-server-4.8.1.jar
     depends_on:
       - selenium-event-bus
     environment:
@@ -114,7 +114,7 @@ services:
     image: python:3.11
     volumes:
       - ./tests:/tests
-      - ./opt/selenium/selenium-server.jar:/Users/Apikorus/QAProjects/unittest/jarfile/selenium-server-4.8.1.jar
+      - ./opt/selenium/selenium-server.jar:/Users/Apikorus/QAProjects/AutomationTests/jarfile/selenium-server-4.8.1.jar
     depends_on:
       - chrome
       - edge
