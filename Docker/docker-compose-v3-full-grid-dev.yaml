@@ -113,7 +113,7 @@ services:
   pytest:
     image: python:3.11
     volumes:
-      - ./tests:/tests
+      - ./tests:/Users/Apikorus/QAProjects/AutomationTests/tests
       - ./opt/selenium/selenium-server.jar:/Users/Apikorus/QAProjects/AutomationTests/jarfile/selenium-server-4.8.1.jar
     depends_on:
       - chrome

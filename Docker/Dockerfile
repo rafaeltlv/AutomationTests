@@ -6,6 +6,7 @@ RUN set -ex \
     && curl -sL https://deb.nodesource.com/setup_14.x | bash - \
     && apt-get install -y nodejs \
     && npm install -g typescript \
+    && pip3 install pytest \
     && apt-get install -y \
         build-essential \
         gnupg2 \
@@ -33,10 +34,4 @@ RUN set -ex \
 
 WORKDIR /app
 
-COPY requirements.txt .
-
-RUN pip install -r requirements.txt
-
-COPY . .
-
-CMD ["pytest", "test_main.py"]
+COPY test_main.py /app/
