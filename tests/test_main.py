@@ -74,13 +74,24 @@ class TestWebsite():
             assert "שעות" in driver.page_source
         except (TimeoutException, AssertionError) as e:
             pytest.fail(f"An error occurred during test execution: {e}")
- 
+
+    def test_sign_in_icon(self, driver_init):
+        driver = driver_init
+        wait = WebDriverWait(driver, 10)
+        try:
+            signinicon = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#lithium-root > header > div > nav > div > div.JNlKm > a.rmyCe._G.B-.z._S.c.Wc.wSSLS.w.jWkoZ.sOtnj")))
+            signinicon.click()
+            popupwindow = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "body > div.bEJky.w._Z.t._U.s.l.D.Za")))
+            assert popupwindow.get_attribute('outerHTML') in driver.page_source
+        except (TimeoutException, AssertionError) as e:
+            pytest.fail(f"An error occurred during test execution: {e}")
+
     @httpretty.activate
     def test_registration_api(self, driver_init):
         httpretty.register_uri(httpretty.GET, "https://www.tripadvisor.co.il/RegistrationController", 
                             body="Access Denied")
         response = requests.get('https://www.tripadvisor.co.il/RegistrationController')
         assert response.text == "Access Denied"
-            
+    
     #how to connect automated tests for APIs
     #test this get request with the following URL: https://www.tripadvisor.co.il/RegistrationController?flow=sign_up_and_save&returnTo=%2F&fullscreen=true&flowOrigin=login&hideNavigation=true&isLithium=true
