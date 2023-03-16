@@ -1,6 +1,8 @@
 import pytest
 import time
 import random
+import requests
+import httpretty
 from selenium.webdriver.chrome.options import Options
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -72,3 +74,13 @@ class TestWebsite():
             assert "שעות" in driver.page_source
         except (TimeoutException, AssertionError) as e:
             pytest.fail(f"An error occurred during test execution: {e}")
+ 
+    @httpretty.activate
+    def test_registration_api(self, driver_init):
+        httpretty.register_uri(httpretty.GET, "https://www.tripadvisor.co.il/RegistrationController", 
+                            body="Access Denied")
+        response = requests.get('https://www.tripadvisor.co.il/RegistrationController')
+        assert response.text == "Access Denied"
+            
+    #how to connect automated tests for APIs
+    #test this get request with the following URL: https://www.tripadvisor.co.il/RegistrationController?flow=sign_up_and_save&returnTo=%2F&fullscreen=true&flowOrigin=login&hideNavigation=true&isLithium=true
