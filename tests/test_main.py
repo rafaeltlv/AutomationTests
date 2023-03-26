@@ -92,6 +92,5 @@ class TestWebsite():
                             body="Access Denied")
         response = requests.get('https://www.tripadvisor.co.il/RegistrationController')
         assert response.text == "Access Denied"
-    
-    #how to connect automated tests for APIs
-    #test this get request with the following URL: https://www.tripadvisor.co.il/RegistrationController?flow=sign_up_and_save&returnTo=%2F&fullscreen=true&flowOrigin=login&hideNavigation=true&isLithium=true
+        httpretty.disable()
+        httpretty.reset()
