@@ -1,14 +1,18 @@
 import pytest
 from selenium import webdriver
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException
 import time
 import random
-from selenium import webdriver
+import httpretty
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from selenium.webdriver.edge.options import Options as EdgeOptions
+from selenium.webdriver.support.wait import WebDriverWait
+from context import *
 
 def pytest_addoption(parser):
     parser.addoption("--browser", action="store", default="chrome", help="Type in browser name (chrome, firefox or edge)")
@@ -29,7 +33,6 @@ def driver(request):
         driver = webdriver.Firefox(options=options)
     elif browser == "edge":
         print("Launching Edge driver")
-        options = EdgeOptions()
         options.use_chromium = True
         driver = webdriver.Edge(options=options)
     else:
@@ -37,41 +40,5 @@ def driver(request):
 
     # Set the browser window size
     driver.set_window_size(1280, 1024)
-    return driver
-
-# Rest of your test code here
-executor_url = "https://localhost:4444/wd/hub"
-
-
-capabilities = [
-    {
-        "browserName": "chrome",
-        "version": "latest",
-        "platformName": "MAC",
-        "deviceName": "MacBook Pro"
-    },
-
-    {
-        "browserName": "firefox",
-        "version": "latest",
-        "platformName": "LINUX",
-        "deviceName": "LINUX PC"
-    },
-
-    {
-        "browserName": "MicrosoftEdge",
-        "version": "latest",
-        "platformName": "WINDOWS",
-        "deviceName": "Windows PC"
-    }
-]
-
-@pytest.fixture(scope="function", params=capabilities)
-def driver_init(request):
-    capabilities = request.param
-    driver = webdriver.Remote(
-        executor_url=executor_url,
-        desired_capabilities=capabilities
-    )
     yield driver
     driver.quit()
