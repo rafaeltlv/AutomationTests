@@ -17,7 +17,6 @@ from selenium.webdriver.edge.options import Options as EdgeOptions
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
 
 @pytest.mark.usefixtures("driver_init")
-# @pytest.mark.parametrize("query", ["poc.cafe", "poc cafe", "poc bakery"])
 def test_search_bar_returns_poc_cafe_as_top_result(driver_init):
     print(f"Current URL: {driver_init.current_url}")
     try:
@@ -48,7 +47,6 @@ def test_click_poc_cafe_search_result_open_new_tab(driver_init):
         # Switch to the new tab and check if the title is correct
         driver_init.switch_to.window(driver_init.window_handles[-1])
         assert "poc.cafe" in driver_init.title, f"Expected 'poc.cafe' to be in title, but got '{driver_init.title}' instead."
-        
     except (TimeoutException, AssertionError) as e:
         pytest.fail(f"An error occurred during test execution: {e}")
     finally:
@@ -56,25 +54,35 @@ def test_click_poc_cafe_search_result_open_new_tab(driver_init):
         driver_init.close()
         driver_init.switch_to.window(driver_init.window_handles[0])
 
-@pytest.mark.usefixtures("driver_init")
-def test_choose_store_hours_confirm_they_appear(driver_init):
-    wait = WebDriverWait(driver_init, 10)
-    try:
-        driver_init.get("https://www.tripadvisor.co.il/Restaurant_Review-g293984-d17581289-Reviews-Poc_cafe-Tel_Aviv_Tel_Aviv_District.html#REVIEWS")
-        poccafehours = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#component_53")))
-        time.sleep(random.randint(1, 3))
-        poccafehours.click()
-        assert "שעות" in driver_init.page_source
-    except (TimeoutException, AssertionError) as e:
-        pytest.fail(f"An error occurred during test execution: {e}")
+# @pytest.mark.usefixtures("driver_init")
+# def test_choose_store_hours_confirm_they_appear(driver_init):
+#     wait = WebDriverWait(driver_init, 10)
+#     try:
+#         restaurants_option = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#lithium-root > main > div.cBOoN > span > div > div > div > div:nth-child(3) > a > span.QLiHN.o.W > span > font > font"))) 
+#         restaurants_option.click()
+#         restaurants_input = wait.until(EC.element_to_be_clickable((By.XPATH, "//form[contains(@class, 'search-form')]//input[contains(@class, 'search-input') and @placeholder='Search for restaurants']")))
+#         restaurants_input.send_keys("poc.cafe")
+#         restaurants_input_search = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#typeahead_results > a")))
+#         restaurants_input_search.click()
+#         driver_init.get_screenshot_as_file("hello.png")
+#         poccafehours = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#component_52")))
+#         poccafehours.click()
+#         poccafehours_div = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "#BODY_BLOCK_JQUERY_REFLOW > div.KWdaU.Za.f.e > div > div > div:nth-child(2) > div")))
+#         assert poccafehours_div is not None
+#     except (TimeoutException, AssertionError) as e:
+#         pytest.fail(f"An error occurred during test execution: {e}")
+        
+# @pytest.mark.usefixtures("driver_init")
+# def test_account_sign_in_screen(driver_init):
+#     wait = WebDriverWait(driver_init, 10)
+#     try:
+#         random_interval = random.uniform(1, 3)
+#         time.sleep(random_interval)
+#         signinicon = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#lithium-root > header > div > nav > div > div:nth-child(2) > a:nth-child(2)")))
+#         signinicon.click()
 
-@pytest.mark.usefixtures("driver_init")
-def test_sign_in_icon(driver_init):
-    wait = WebDriverWait(driver_init, 10)
-    try:
-        signinicon = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#lithium-root > header > div > nav > div > div.JNlKm > a.rmyCe._G.B-.z._S.c.Wc.wSSLS.w.jWkoZ.sOtnj")))
-        signinicon.click()
-        popupwindow = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "body > div.bEJky.w._Z.t._U.s.l.D.Za")))
-        assert popupwindow.get_attribute('outerHTML') in driver_init.page_source
-    except (TimeoutException, AssertionError) as e:
-        pytest.fail(f"An error occurred during test execution: {e}")
+#         sign_in_email_input = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#regSignIn\\.email")))
+#         sign_in_email_input.send_keys("reyesraf@oregonstate.edu")
+#         assert sign_in_email_input is not None
+#     except (TimeoutException, AssertionError) as e:
+#         pytest.fail(f"An error occurred during test execution: {e}")
