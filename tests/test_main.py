@@ -54,35 +54,47 @@ def test_click_poc_cafe_search_result_open_new_tab(driver_init):
         driver_init.close()
         driver_init.switch_to.window(driver_init.window_handles[0])
 
-# @pytest.mark.usefixtures("driver_init")
-# def test_choose_store_hours_confirm_they_appear(driver_init):
-#     wait = WebDriverWait(driver_init, 10)
-#     try:
-#         restaurants_option = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#lithium-root > main > div.cBOoN > span > div > div > div > div:nth-child(3) > a > span.QLiHN.o.W > span > font > font"))) 
-#         restaurants_option.click()
-#         restaurants_input = wait.until(EC.element_to_be_clickable((By.XPATH, "//form[contains(@class, 'search-form')]//input[contains(@class, 'search-input') and @placeholder='Search for restaurants']")))
-#         restaurants_input.send_keys("poc.cafe")
-#         restaurants_input_search = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#typeahead_results > a")))
-#         restaurants_input_search.click()
-#         driver_init.get_screenshot_as_file("hello.png")
-#         poccafehours = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#component_52")))
-#         poccafehours.click()
-#         poccafehours_div = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "#BODY_BLOCK_JQUERY_REFLOW > div.KWdaU.Za.f.e > div > div > div:nth-child(2) > div")))
-#         assert poccafehours_div is not None
-#     except (TimeoutException, AssertionError) as e:
-#         pytest.fail(f"An error occurred during test execution: {e}")
+@pytest.mark.usefixtures("driver_init")
+def test_choose_store_hours_confirm_they_appear(driver_init):
+    wait = WebDriverWait(driver_init, 20)
+    try:
+        restaurants_option = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#lithium-root > main > div.cBOoN > span > div > div > div > div:nth-child(3) > a > span.QLiHN.o.W > span"))) 
         
-# @pytest.mark.usefixtures("driver_init")
-# def test_account_sign_in_screen(driver_init):
-#     wait = WebDriverWait(driver_init, 10)
-#     try:
-#         random_interval = random.uniform(1, 3)
-#         time.sleep(random_interval)
-#         signinicon = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#lithium-root > header > div > nav > div > div:nth-child(2) > a:nth-child(2)")))
-#         signinicon.click()
+        restaurants_option.click()
+        restaurants_input = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "body > div.kaEuY > div > form > input.qjfqs._G.B-.z._J.Cj.R0")))
+        restaurants_input.send_keys("poc.cafe")
+        random_interval = random.uniform(2, 3)
+        time.sleep(random_interval)
+        #correct if needed
+        poccafe = wait.until(EC.presence_of_element_located((By.XPATH, "/html/body/div[3]/div/form/div/a[1]")))
+        poccafe.click()
 
-#         sign_in_email_input = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#regSignIn\\.email")))
-#         sign_in_email_input.send_keys("reyesraf@oregonstate.edu")
-#         assert sign_in_email_input is not None
-#     except (TimeoutException, AssertionError) as e:
-#         pytest.fail(f"An error occurred during test execution: {e}")
+        poccafehours = wait.until(EC.element_to_be_clickable((By.CLASS_NAME, "bsALk")))
+        poccafehours.click()
+
+        poccafehours_div = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "#BODY_BLOCK_JQUERY_REFLOW > div.KWdaU.Za.f.e > div > div > div:nth-child(2) > div")))
+        assert poccafehours_div is not None
+    except (TimeoutException, AssertionError) as e:
+        pytest.fail(f"An error occurred during test execution: {e}")
+        
+@pytest.mark.usefixtures("driver_init")
+def test_account_sign_in_screen(driver_init):
+    wait = WebDriverWait(driver_init, 20)
+    try:
+        random_interval = random.uniform(1, 3)
+        time.sleep(random_interval)
+        driver_init.get_screenshot_as_file("hello.png")
+        signinicon = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#lithium-root > header > div > nav > div > div.JNlKm > a.rmyCe._G.B-.z._S.c.Wc.wSSLS.w.jWkoZ.sOtnj")))
+        signinicon.click()
+
+        iframe = wait.until(EC.presence_of_element_located((By.TAG_NAME, "iframe")))
+        driver_init.switch_to.frame(iframe)
+        sign_in_email_option = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#ssoButtons > button")))
+
+        #add when latency is resolved
+        # sign_in_email_option.click()
+        # sign_in_email_input = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#regSignIn\\.email")))
+        # sign_in_email_input.send_keys("reyesraf@oregonstate.edu")
+        assert sign_in_email_option is not None
+    except (TimeoutException, AssertionError) as e:
+        pytest.fail(f"An error occurred during test execution: {e}")

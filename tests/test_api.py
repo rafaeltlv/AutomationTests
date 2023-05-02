@@ -12,3 +12,9 @@ def test_registration_api(driver_init):
     assert response.text == "Access Denied"
     httpretty.disable()
     httpretty.reset()
+
+
+
+
+
+#add more apis
