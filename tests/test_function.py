@@ -13,8 +13,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.chrome.options import Options as ChromeOptions
-from selenium.webdriver.edge.options import Options as EdgeOptions
-from selenium.webdriver.firefox.options import Options as FirefoxOptions
+# from selenium.webdriver.edge.options import Options as EdgeOptions
+# from selenium.webdriver.firefox.options import Options as FirefoxOptions
 
 @pytest.mark.usefixtures("driver_init")
 def test_search_bar_returns_poc_cafe_as_top_result(driver_init):
@@ -72,7 +72,7 @@ def test_choose_store_hours_confirm_they_appear(driver_init):
         poccafehours = wait.until(EC.element_to_be_clickable((By.CLASS_NAME, "bsALk")))
         poccafehours.click()
 
-        poccafehours_div = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "#BODY_BLOCK_JQUERY_REFLOW > div.KWdaU.Za.f.e > div > div > div:nth-child(2) > div")))
+        poccafehours_div = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "#BODY_BLOCK_JQUERY_REFLOW div:nth-child(2) > div")))
         assert poccafehours_div.is_displayed()
     except (TimeoutException, AssertionError) as e:
         pytest.fail(f"An error occurred during test execution: {e}")

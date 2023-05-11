@@ -1,17 +1,15 @@
-# import pytest
-# import requests
-# import httpretty
-# from ..resources import context
-# from ..resources.conftest import driver_init
+import pytest
+import requests
+import httpretty
+from contextlib import asynccontextmanager
 
+from ..resources.conftest import driver_init
 
-# @httpretty.activate
-# def test_registration_api(driver_init):
-#     httpretty.register_uri(httpretty.GET, "https://www.tripadvisor.co.il/", 
-#                         body="Access Denied")
-#     response = requests.get('https://www.tripadvisor.co.il/RegistrationController')
-#     assert response.text == "Access Denied"
-#     httpretty.disable()
-#     httpretty.reset()
+import requests
 
-# #add more apis
+def test_tripadvisor():
+    url = "https://tripadvisor.co.il"
+    response = requests.get(url)
+    assert response.status_code == 200
+    assert response.history[0].status_code == 200
+    assert response.history[0].headers['location'] == "https://www.tripadvisor.co.il/"
