@@ -1,0 +1,186 @@
+
+Test Strategy Documentation 17/05/2023:
+
+    Software Test Plan 16/05/2023:
+
+        1. Introduction and test setup:
+        The project involves testing the functionality of a website using automated tests. The tests are written in Python using the PyTest framework and Selenium for web automation.
+        This document outlines the test plan for the automated tests performed on the "TripAdvisor" website. The tests aim to verify the functionality of the search bar, search results, store hours, and account sign-in screen. This plan describes the objectives, scope, test deliverables, test environment, and test schedule.
+        The following url will be used for the test, "https://tripadvisor.co.il" as it is the app we will be testing.
+
+        2. Test Coverage:
+        Verify the accuracy of the generated report, including the environment details, summary, and individual test results.
+        Validate the filtering functionality by checking if the filters show/hide the expected test results.
+        Verify the sorting functionality by checking if the sorting order is correctly applied to the columns.
+        Validate the collapsing/expanding functionality of the test result details.
+        Verify the visibility and formatting of the test result details.
+
+        3. Test Scope:
+        Search functionality
+        Opening new tabs
+        Store hours display
+        Account sign-in screen
+        The scope of the tests includes the following:
+        Functional testing of the search bar and the search results themselves.
+        Verification of the display of store hours for "poc.cafe".
+        Validation of the account sign-in screen.
+
+        4. Test Approach:
+        Automated tests: The provided test script will be executed to perform automated tests on the website. The script covers the specified test objectives and will be used as the primary means of testing.
+        Test Approach
+        The tests will be performed using an automated test script written in Python and leveraging the Selenium WebDriver. The test script will simulate user interactions with the "poc.cafe" website, including entering search queries, clicking on elements, and verifying expected outcomes.
+        Test Execution
+        Pre-requisites:
+
+        Ensure that the necessary dependencies (Python, PyTest, Selenium) are installed.
+        Set up the Chrome WebDriver for Selenium.
+        Test Data:
+
+        No test data is required as the tests use predefined inputs.
+        Test Execution Steps:
+
+        Run the test script using the PyTest framework.
+        Monitor the test execution for any failures or errors.
+        Test Pass/Fail Criteria:
+
+        Each test case will have its own pass/fail criteria based on the expected results mentioned in the script.
+        A test will be considered successful if it passes without any exceptions or assertion errors.
+        Test Reporting:
+
+        Document any test failures or errors encountered during test execution.
+        Report the overall test results, including the number of passed and failed tests.
+        Test Schedule
+        The estimated time required to execute the automated tests is as follows:
+
+        5. Test Timing
+        Test search bar functionality: 10 seconds
+        Test opening new tabs: 10 seconds
+        Test store hours display: 10 seconds
+        Test account sign-in screen: 10 seconds
+
+        6. Test Objectives
+        The objectives of the tests are as follows:
+
+        Test Objective 1: Verify that the search bar returns "poc.cafe" as the top result.
+        Test Objective 2: Verify that clicking on the search result for "poc.cafe" opens a new tab with the correct title.
+        Test Objective 3: Verify that the store hours for "poc.cafe" are displayed correctly.
+        Test Objective 4: Verify that the account sign-in screen is displayed upon clicking the sign-in icon.
+
+        7. Test Scenarios and test cases
+        Test Suite Execution Steps:
+        Set up the test environment.
+        Execute Test Case 1 and record the actual results.
+        Execute Test Case 2 and record the actual results.
+        Execute Test Case 3 and record the actual results.
+        Execute Test Case 4 using the test data and record the actual results.
+
+        Test Execution Logs:
+
+        Test Notes/Issues:
+
+        Test Scenario 1: Search Bar Functionality
+
+        Test Case 1.1: Test search bar functionality
+        Step 1: Enter "poc.cafe" in the search bar.
+        Step 2: Press the Enter key.
+        Step 3: Verify that the title of the page contains "poc.cafe".
+        Test Scenario 2: Search Result Navigation
+
+        Test Case 2.1: Test search result navigation
+        Step 1: Enter "poc.cafe" in the search bar.
+        Step 2: Press the Enter key.
+        Step 3: Click on the search result for "poc.cafe".
+        Step 4: Switch to the new tab.
+        Step 5: Verify that the title of the page contains "poc.cafe".
+        Test Scenario 3: Store Hours Display
+
+        Test Case 3.1: Test store hours display
+        Step 1: Click on the link to view the store hours of a restaurant.
+        Step 2: Enter "poc.cafe" in the search bar.
+        Step 3: Press the Enter key.
+        Step 4: Click on the search result for "poc.cafe".
+        Step 5: Click on the link to view the store hours for "poc.cafe".
+        Step 6: Verify that the store hours are displayed.
+        Test Scenario 4: Account Sign-In Screen
+
+        Test Case 4.1: Test account sign-in screen
+        Step 1: Click on the sign-in icon.
+        Step 2: Switch to the iframe containing the sign-in form.
+        Step 3: Click on the sign-in option using email.
+        Step 4: Enter the email address and password.
+        Step 5: Verify that the password field contains the expected value.
+
+        8. Goal
+        The goal of this testing script is to ensure and verify that basic user functions are operational on the utilized environment(s).
+
+        9. Test Environment
+        The tests will be executed using the following test environment:
+
+        Operating System: macOS-13.3.1-x86_64-i386-64bit
+        Browser: Google Chrome v.113.0.5672.126
+        Selenium WebDriver: [Specify the WebDriver version]
+        Test Environment: Any issues or instability with the test environment, such as browser compatibility issues or network connectivity problems, could impact test execution. It's important to ensure a stable test environment and address any environmental issues promptly.
+        The following tools and technologies will be used for testing:
+        PyTest framework
+        webapp url: "https://www.tripadvisor.co.il
+        Python: Python 3.11.3
+        Operating System: macOS-13.3.1-x86_64-i386-64bit
+        Browser: Google Chrome Browser v.113.0.5672.126
+        Selenium WebDriver: 4.8.2
+        Test Framework: PyTest
+
+        10. Test Schedule:
+        The tests will be scheduled to run nightly at 12:00 AM using a cron job to ensure that there is no prior test scheduling running.
+
+        11. Risks and Mitigation:
+        Changes to website structure: If the website structure changes, the CSS selectors used in the test script may need to be updated. Regular maintenance and updates to the test script will be necessary, until all elmements are namned, in order to adapt to any changes in the website's design or layout.
+
+        12. Test Data: The test script does not rely on specific test data. However, if changes to the website's data or content occur, it may affect the test results. Monitoring and verifying the test data is essential to maintain accurate and reliable results.
+
+        13. Test Deliverables
+        Test Strategy Document: This document outlining the test objectives, approach, and scope.
+        Test Deliverables
+        The following test deliverables will be produced:
+        Test cases for each test scenario.
+        Test scripts for automation.
+        Test execution reports.
+
+
+
+    Test Result Report 16/05/2023:
+
+        Test Case 1: Verify Search Bar Functionality
+        Actual Result: The search results page opened successfully, and the title contained "poc.cafe".
+        Pass/Fail: Pass
+
+        Test Case 2: Verify Opening Search Result in New Tab
+        Actual Result: A new tab opened with the "poc.cafe" website, and the title contained "poc.cafe".
+        Pass/Fail: Pass
+
+        Test Case 3: Verify Display of Store Hours
+        Actual Result: The store hours for "poc.cafe" were displayed on the page.
+        Pass/Fail: Pass
+
+        Test Case 4: Verify Sign-In Screen
+        Actual Result: The sign-in screen was displayed, and the user was able to enter their email address and password successfully.
+        Pass/Fail: Pass
+
+        Test Summary:
+        Overall Test Result: Pass
+
+        Test Environment
+        Operating System: macOS-13.3.1-x86_64-i386-64bit
+        Browser: Google Chrome 	v.113.0.5672.126
+        Test Environment Setup: [Specify any specific test environment setup required]
+        Test Execution Logs
+        [relevant logs or screenshots captured during the test execution]
+        Test Dependencies
+        [dependencies required for the test execution, such as test data, test environment configuration, etc.]
+        Test Notes/Issues
+        [additional notes or issues encountered during the testing process]
+
+        Test Conclusion
+        The test script was executed successfully, and all test cases passed, confirming the expected functionality of the search bar, search results, store hours, and sign-in screen. No critical issues or defects were identified during testing.
+
+        Recommendations
+        Based on the test results, it is recommended to proceed with further testing and ensure comprehensive coverage of other features and functionalities of the website. Additionally, conducting additional tests on different browsers and platforms can help ensure cross-compatibility and a seamless user experience.

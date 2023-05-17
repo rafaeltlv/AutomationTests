@@ -1,18 +1,30 @@
+# import os
 # import pytest
-import requests
-# import httpretty
-# from contextlib import asynccontextmanager
+# import requests
+# import json
+# import pandas as pd
 
-# from ..resources.conftest import driver_init
+# URL = "https://www.google.com/"
 
-import requests
+# def print_response_info(url):
+#     try:
+#         response = requests.get(url)
+#         response.raise_for_status()
+        
+#         print("Response Information:")
+#         print(f"Status Code: {response.status_code}")
+#         print(f"Location Header: {response.headers.get('location', 'Not Found')}")
+        
+#         headers_table = []
+#         for key, value in response.headers.items():
+#             headers_table.append([key, value])
+        
+#         print("\nResponse Headers:")
+#         print(tabulate(headers_table, headers=["Header", "Value"], tablefmt="grid"))
+#     except requests.exceptions.RequestException as e:
+#         print(f"An error occurred: {e}")
 
-def test_tripadvisor():
-    url = "https://www.google.com/"
-    response = requests.get(url)
-    print(response.status_code, response.history, response.headers)
-    # assert response.status_code == 200
-    # assert response.history[0].status_code == 200
-    # assert response.history[0].headers['location'] == "https://www.tripadvisor.co.il/"
+# def test_tripadvisor():
+#     print_response_info(URL)
 
-test_tripadvisor()
+# test_tripadvisor()
