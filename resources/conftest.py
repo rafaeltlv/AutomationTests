@@ -1,4 +1,3 @@
-import httpretty
 import random
 import pytest
 import time
@@ -12,14 +11,26 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
+service = Service(ChromeDriverManager().install())
 
 @pytest.fixture(scope='function')
 def driver_init(request):
-    options = Options()
+    options = webdriver.ChromeOptions()
     options.add_argument('--disable-cookies')
     options.add_argument('--headless')
-    driver = webdriver.Chrome(options=options)
-    options = Options()
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
+    options.add_argument('--enable-logging')
+    options.add_argument('--v=1')
+    # Set browser name in options if needed
+    options.set_capability('browserName', 'chrome')
+    # Connect to Selenium Grid
+    driver = webdriver.Remote(
+        command_executor='http://selenium-router:4444/wd/hub',
+        options=options
+    )
     driver.maximize_window()
     driver.get("https://control.autofleet.io/login")
     yield driver
