@@ -17,21 +17,15 @@ RUN set -ex \
         x11vnc \
         fluxbox \
         xterm \
-        libgconf-2-4 \
+        libconfig-2-4 \
         libnss3 \
         libasound2 \
         libatk-bridge2.0-0 \
         libgtk-3-0 \
-        firefox \
         google-chrome-stable \
-        microsoft-edge-dev \
-    && wget -q -O - https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg && \
-    install -o root -g root -m 644 microsoft.gpg /etc/apt/trusted.gpg.d/ && \
-    sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/edge stable main" > /etc/apt/sources.list.d/microsoft-edge-dev.list' && \
-    rm microsoft.gpg && \
-    apt-get update && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
+    && apt-get update \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /app
+    WORKDIR /app
 
-COPY test_main.py /app/
+    COPY test_main.py /app/
